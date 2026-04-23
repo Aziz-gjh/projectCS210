@@ -1,0 +1,16 @@
+A suggestion I had
+(If you want to switch some tasks just tell me)
+
+Abdelrahman:
+AVL tree (We MUST add an extra method that turns tasks to complete)
+AVL node
+NEOM_Core actions (1-6)
+Solution (main class)
+
+Abdulaziz:
+SList
+TaskQueue (It should return items it dequeues)
+ActionStack
+ArchiveList
+TaskNode
+
