@@ -13,29 +13,27 @@ public class AVLTree {
 
     //might need a helper class for balancing
     public void Insert(int sectorID) {
-        if (root == null) {
-            root = AVLNode(sectorID, 1, new SList, null, null);
-        }
-        if(root.sectorID > sectorID) {
-            Insert(root.left, sectorID, 2);
-        }
-        if(root.sectorID < sectorID) {
-            Insert(root.right, sectorID, 2);
-        }
+        root = Insert(root, sectorID, 1);
+        
     }       
 
     //I intentionally used method overloading a lot in the AVL tree
-    private void Insert(AVLNode currentNode, int sectorID, int height) {
+    private AVLNode Insert(AVLNode currentNode, int sectorID) {
         if(currentNode == null) {
-            currentNode = AVLNode(sectorID, height, new SList, null, null);
+            size++;
+            return new AVLNode(sectorID);
         }
         if(currentNode.sectorID > sectorID) {
-            Insert(currentNode.left, sectorID, height + 1);
+            currentNode.left = Insert(currentNode.left, sectorID);
         }
         if(currentNode.sectorID < sectorID) {
-            Insert(currentNode.right, sectorID, height + 1);
+            currentNode.right = Insert(currentNode.right, sectorID);
         }
-        Balance(currentNode); //or maybe we need to call balance on the whole tree idk
+        if(currentNode.sectorID == sectorID) {
+            return currentNode;
+        }
+        updateHeight(currentNode);
+        return Balance(currentNode); 
     }
 
     public void AVLNode Remove(int sectorID) {
@@ -62,6 +60,7 @@ public class AVLTree {
             updateHeight(currentNode);
 
             currentNode = Balance(currentNode);
+            size--;
             return currentNode;
         }
     }
