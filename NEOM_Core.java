@@ -12,10 +12,13 @@ public class NEOM_Core {
     }
     
     public void addTask(int sectorID, String taskID, String desc) {
-        //insert into AVL tree
-        sectors.Insert(sectorID);
-        //insert into Queue
         TaskNode newTask = new TaskNode(sectorID, taskID, desc);
+        //insert task into Node in AVL tree if it exists, else make the node and insert
+        if(sectors.Search(sectorID) == null) {
+            sectors.Insert(sectorID);
+        }
+        sectors.Search(sectorID).tasks.Add(newTask);
+        //insert into Queue
         deployment.Enqueue(newTask);
         //push onto the stack
         undoLog.Push(newTask);
@@ -53,7 +56,7 @@ public class NEOM_Core {
 
     public void searchSector(int sectorID) {
         //Search the AVL tree for sectorID
-        TasnkNode SearchedTask = sectors.Search(sectorID)
+        TaskNode SearchedTask = sectors.Search(sectorID)
         //print number of comparisons vs. total Sectors (demonstrate that it is O(log n))
         //WIP HERE
 
